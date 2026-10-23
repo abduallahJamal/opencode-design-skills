@@ -1,0 +1,32 @@
+# مخرجات التوليد
+*.docx
+*.pdf
+*.pptx
+*.xlsx
+!docs/**/*.pdf
+
+# معاينات المراجعة
+preview/
+page-*.png
+*.tmp
+
+# بيئات بايثون
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.python-version
+
+# نظام التشغيل والمحررات
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# سجلات وبيانات حساسة
+*.log
+.env
+.env.*
