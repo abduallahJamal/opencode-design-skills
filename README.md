@@ -12,7 +12,7 @@
 [![RTL](https://img.shields.io/badge/Arabic-RTL-a78bfa.svg?style=flat-square)](#-arabic-rtl-support)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-d97757.svg?style=flat-square)](#-one-standard-three-agents)
 [![Codex](https://img.shields.io/badge/Codex%20CLI-compatible-10a37f.svg?style=flat-square)](#-one-standard-three-agents)
-[![Docs](https://img.shields.io/badge/docs-English%20%2B%20العربية-0f172a.svg?style=flat-square)
+[![Docs](https://img.shields.io/badge/docs-English%20%2B%20العربية-0f172a.svg?style=flat-square)](#-usage)
 
 **🌐 English** · **[العربية](README.ar.md)**
 
@@ -115,7 +115,7 @@ Several other agents read these same paths — Cursor, GitHub Copilot CLI, Gemin
 ### Option 1 — Install script (recommended)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/opencode-design-skills.git
+git clone https://github.com/abduallahJamal/opencode-design-skills.git
 cd opencode-design-skills
 
 # Global: available in every project  →  ~/.config/opencode/skills/
@@ -140,7 +140,7 @@ cp -r opencode-design-skills/.opencode/skills/* ~/.config/opencode/skills/
 ### Option 3 — Git submodule
 
 ```bash
-git submodule add https://github.com/YOUR_USERNAME/opencode-design-skills.git .opencode/vendor/design-skills
+git submodule add https://github.com/abduallahJamal/opencode-design-skills.git .opencode/vendor/design-skills
 ln -s ../vendor/design-skills/.opencode/skills/sword .opencode/skills/sword
 ```
 

@@ -117,7 +117,7 @@
 ### الطريقة 1 — سكربت التثبيت (موصى بها)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/opencode-design-skills.git
+git clone https://github.com/abduallahJamal/opencode-design-skills.git
 cd opencode-design-skills
 
 # تثبيت عام لكل المشاريع  ←  ~/.config/opencode/skills/
@@ -142,7 +142,7 @@ cp -r opencode-design-skills/.opencode/skills/* ~/.config/opencode/skills/
 ### الطريقة 3 — Git Submodule
 
 ```bash
-git submodule add https://github.com/YOUR_USERNAME/opencode-design-skills.git .opencode/vendor/design-skills
+git submodule add https://github.com/abduallahJamal/opencode-design-skills.git .opencode/vendor/design-skills
 ln -s ../vendor/design-skills/.opencode/skills/sword .opencode/skills/sword
 ```
 
