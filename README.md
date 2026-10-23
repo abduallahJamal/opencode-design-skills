@@ -99,6 +99,8 @@ Several other agents read these same paths — Cursor, GitHub Copilot CLI, Gemin
 ./install.sh --list                          # show skills
 ```
 
+**Working in this repo with an agent?** `AGENTS.md` at the root carries the always-on rules — canonical source, never edit generated copies, never weaken the ask-first protocol — so any agent that opens the repo behaves correctly without being told.
+
 **Single source of truth:** `.opencode/skills/` is canonical. `.claude/skills/` and `.agents/skills/` are generated copies — edit the canonical file, then run:
 
 ```bash
@@ -304,12 +306,15 @@ opencode-design-skills/
 │   └── shtml/SKILL.md            # HTML
 ├── .claude/skills/               # generated → Claude Code
 ├── .agents/skills/               # generated → Codex / Cursor / Gemini
+├── .github/
+│   └── workflows/validate.yml    # CI: frontmatter + sync drift + links
 ├── assets/
 │   └── banner.svg
 ├── docs/
 │   ├── usage-examples.en.md      # ready-to-use prompts (English)
 │   └── usage-examples.md         # ready-to-use prompts (Arabic)
 ├── install.sh                    # installer
+├── AGENTS.md                     # always-on context for coding agents
 ├── scripts/
 │   ├── sync-platforms.sh         # regenerate .claude/ + .agents/
 │   └── publish.sh                # push to GitHub
@@ -380,7 +385,7 @@ The agent may shortcut under tight model context. Ask explicitly:
 
 Contributions are welcome. Before opening a PR:
 
-1. Preserve the **"ask first" protocol** — never delete or shorten it.
+1. Preserve the **"ask first" protocol** — never delete or shorten it. CI will not catch this; reviewers will.
 2. Add any new rule in its proper section, not as a loose footnote.
 3. Update the **final delivery checklist** if you add a requirement.
 4. Actually test it by generating at least one real file.

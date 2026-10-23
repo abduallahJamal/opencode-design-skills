@@ -101,6 +101,8 @@
 ./install.sh --list                          # عرض المهارات
 ```
 
+**تعمل داخل المستودع بوكيل برمجة؟** ملف `AGENTS.md` في الجذر يحمل القواعد الدائمة — المصدر الأصلي، عدم تعديل النسخ المولّدة، وعدم إضعاف بروتوكول الأسئلة — فيتصرف أي وكيل يفتح المستودع بشكل صحيح دون أن تشرح له.
+
 **مصدر واحد للحقيقة:** `.opencode/skills/` هو الأصل، و`.claude/skills/` و`.agents/skills/` نسخ مولّدة آلياً. عدّل الأصل ثم شغّل:
 
 ```bash
@@ -306,12 +308,15 @@ opencode-design-skills/
 │   └── shtml/SKILL.md            # HTML
 ├── .claude/skills/               # مولّد → Claude Code
 ├── .agents/skills/               # مولّد → Codex / Cursor / Gemini
+├── .github/
+│   └── workflows/validate.yml    # CI: frontmatter + انحراف النسخ + الروابط
 ├── assets/
 │   └── banner.svg
 ├── docs/
 │   ├── usage-examples.md         # أمثلة مطالبات جاهزة (عربي)
 │   ├── usage-examples.en.md      # أمثلة مطالبات جاهزة (English)
 ├── install.sh                    # سكربت تثبيت
+├── AGENTS.md                     # سياق دائم لوكلاء البرمجة
 ├── scripts/
 │   ├── sync-platforms.sh         # توليد .claude/ و.agents/
 │   └── publish.sh                # رفع المستودع إلى GitHub

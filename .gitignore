@@ -17,6 +17,7 @@ __pycache__/
 venv/
 env/
 .python-version
+.cache/
 
 # نظام التشغيل والمحررات
 .DS_Store

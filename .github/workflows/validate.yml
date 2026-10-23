@@ -1,0 +1,111 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Frontmatter + platform sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Syntax check shell scripts
+        run: bash -n install.sh scripts/*.sh
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          pip install --quiet pyyaml
+          python - <<'PY'
+          import pathlib, re, sys, yaml
+
+          NAME_RE = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
+          REQUIRED = ("name", "description")
+          errors = []
+          files = sorted(pathlib.Path(".").glob(".*/skills/*/SKILL.md"))
+
+          if not files:
+              errors.append("no SKILL.md files found")
+
+          for p in files:
+              text = p.read_text(encoding="utf-8")
+              if not text.startswith("---"):
+                  errors.append(f"{p}: missing YAML frontmatter")
+                  continue
+              try:
+                  fm = yaml.safe_load(text.split("---")[1])
+              except yaml.YAMLError as exc:
+                  errors.append(f"{p}: invalid YAML ({exc})")
+                  continue
+
+              for key in REQUIRED:
+                  if not fm.get(key):
+                      errors.append(f"{p}: missing required field '{key}'")
+
+              name = fm.get("name", "")
+              if not NAME_RE.match(name) or len(name) > 64:
+                  errors.append(f"{p}: invalid name '{name}' (must match ^[a-z0-9]+(-[a-z0-9]+)*$, max 64)")
+              if name != p.parent.name:
+                  errors.append(f"{p}: name '{name}' does not match folder '{p.parent.name}'")
+
+              desc = fm.get("description", "")
+              if not 1 <= len(desc) <= 1024:
+                  errors.append(f"{p}: description must be 1-1024 chars (got {len(desc)})")
+
+              meta = fm.get("metadata") or {}
+              if not isinstance(meta, dict):
+                  errors.append(f"{p}: metadata must be a map")
+              else:
+                  for k, v in meta.items():
+                      if not isinstance(v, str):
+                          errors.append(f"{p}: metadata['{k}'] must be a string")
+
+          if errors:
+              print("\n".join(f"::error::{e}" for e in errors))
+              sys.exit(1)
+          print(f"OK — {len(files)} SKILL.md files validated")
+          PY
+
+      - name: Check generated copies match the canonical source
+        run: ./scripts/sync-platforms.sh --check
+
+      - name: Check documentation links resolve
+        run: |
+          python - <<'PY'
+          import pathlib, re, sys
+
+          docs = ["README.md", "README.ar.md", "AGENTS.md", "CHANGELOG.md", "CONTRIBUTING.md",
+                  "docs/usage-examples.md", "docs/usage-examples.en.md"]
+          errors = []
+
+          for f in docs:
+              p = pathlib.Path(f)
+              if not p.exists():
+                  continue
+              text = p.read_text(encoding="utf-8")
+              if text.count("```") % 2:
+                  errors.append(f"{f}: unbalanced code fences")
+              # ignore tags mentioned inside code, then check real HTML blocks
+              prose = re.sub(r"```.*?```", "", text, flags=re.S)
+              prose = re.sub(r"`[^`]*`", "", prose)
+              if prose.count("<details>") != prose.count("</details>"):
+                  errors.append(f"{f}: unbalanced <details> tags")
+              for target in re.findall(r'\]\((?!https?:|#)([^)#]+)', text):
+                  if not (p.parent / target.strip()).exists():
+                      errors.append(f"{f}: broken link -> {target}")
+              for img in re.findall(r'src="([^"]+)"', text):
+                  if not (p.parent / img).exists():
+                      errors.append(f"{f}: missing image -> {img}")
+
+          if errors:
+              print("\n".join(f"::error::{e}" for e in errors))
+              sys.exit(1)
+          print("OK — documentation structure and links verified")
+          PY

@@ -115,6 +115,19 @@ chore(scripts): make install.sh idempotent
 
 ---
 
+## بوابة CI
+
+كل push وPR يشغّل `.github/workflows/validate.yml`، ويجب أن يمر قبل الدمج:
+frontmatter سليم · نسخ المنصات غير منحرفة · روابط التوثيق تعمل.
+شغّل نفس التحققات قبل الـ push:
+
+```bash
+bash -n install.sh scripts/*.sh
+./scripts/sync-platforms.sh --check
+```
+
+---
+
 ## خطوات المساهمة
 
 ```bash
