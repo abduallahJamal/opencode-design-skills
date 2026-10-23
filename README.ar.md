@@ -10,6 +10,8 @@
 [![OpenCode](https://img.shields.io/badge/OpenCode-Skills-38bdf8.svg?style=flat-square)](https://opencode.ai/docs/skills/)
 [![Skills](https://img.shields.io/badge/skills-3-818cf8.svg?style=flat-square)](#-المهارات-الثلاث)
 [![RTL](https://img.shields.io/badge/Arabic-RTL-a78bfa.svg?style=flat-square)](#-دعم-العربية-rtl)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-d97757.svg?style=flat-square)](#-معيار-واحد-ثلاثة-وكلاء)
+[![Codex](https://img.shields.io/badge/Codex%20CLI-compatible-10a37f.svg?style=flat-square)](#-معيار-واحد-ثلاثة-وكلاء)
 [![Docs](https://img.shields.io/badge/docs-English%20%2B%20العربية-0f172a.svg?style=flat-square)](#-الاستخدام)
 
 **العربية** · **[English](README.md)**
@@ -68,6 +70,43 @@
 - استجابة مؤكدة على 375 / 768 / 1440px
 - `@media print` جاهز للتحويل إلى PDF
 - إتاحة: تباين ≥ 4.5:1، `:focus-visible`، HTML دلالي
+
+---
+
+## 🧩 معيار واحد، ثلاثة وكلاء
+
+المهارات مبنية على [معيار Agent Skills المفتوح](https://agentskills.io/specification) — نفس ملف `SKILL.md` يعمل بلا تعديل في OpenCode وClaude Code وCodex. الفرق الوحيد هو مسار التثبيت:
+
+| الوكيل | مسار المشروع | مسار المستخدم | الاستدعاء |
+|---|---|---|---|
+| **OpenCode** | `.opencode/skills/` | `~/.config/opencode/skills/` | تلقائي، أو `use skill sword` |
+| **Claude Code** | `.claude/skills/` | `~/.claude/skills/` | `/sword` |
+| **Codex CLI** | `.agents/skills/` | `~/.agents/skills/` | `$sword` أو `/skills` |
+
+وهذه المسارات يقرأها أيضاً Cursor وGitHub Copilot CLI وGemini CLI وAntigravity — فتثبيت واحد يخدم أكثر من وكيل.
+
+### ملاحظات خاصة بكل منصة
+
+- **Claude Code** — الملف يحمل `allowed-tools: Read, Write, Edit, Bash, Glob, Grep`، فيستطيع تشغيل Python وWeasyPrint وLibreOffice دون طلب إذن لكل أداة. الاستدعاء بـ `/sword`، ويعمل أيضاً تلقائياً من الـ description.
+- **Codex CLI** — يقرأ `name` و`description` فقط (و`metadata.short-description` للعرض) ويتجاهل الباقي. **أعد تشغيل Codex** بعد التثبيت ثم استخدم `/skills` أو `$sword`. *النسخ الأقدم كانت تقرأ `~/.codex/skills/` — إن لم يُكتشف `.agents/skills/` فثبّت بـ `--codex-legacy`.*
+- **OpenCode** — يقرأ `.opencode/skills/` أصلاً، وكذلك `.claude/skills/` و`.agents/skills/` كمسارات توافق، فتثبيت واحد يكفي للثلاثة.
+
+### التثبيت حسب الوكيل
+
+```bash
+./install.sh --all --global                  # كل الوكلاء، نطاق المستخدم
+./install.sh --claude --global               # Claude Code فقط   → ~/.claude/skills/
+./install.sh --codex  --global               # Codex فقط         → ~/.agents/skills/
+./install.sh --opencode --project ~/my-app   # OpenCode في مشروع واحد
+./install.sh --list                          # عرض المهارات
+```
+
+**مصدر واحد للحقيقة:** `.opencode/skills/` هو الأصل، و`.claude/skills/` و`.agents/skills/` نسخ مولّدة آلياً. عدّل الأصل ثم شغّل:
+
+```bash
+./scripts/sync-platforms.sh          # إعادة التوليد
+./scripts/sync-platforms.sh --check  # تحقق من عدم وجود انحراف (مناسب لـ CI)
+```
 
 ---
 
@@ -261,14 +300,12 @@ use skill sword
 
 ```text
 opencode-design-skills/
-├── .opencode/
-│   └── skills/
-│       ├── sword/
-│       │   └── SKILL.md          # Word / .docx
-│       ├── spdf/
-│       │   └── SKILL.md          # PDF
-│       └── shtml/
-│           └── SKILL.md          # HTML
+├── .opencode/skills/             # ← المصدر الأصلي
+│   ├── sword/SKILL.md            # Word / .docx
+│   ├── spdf/SKILL.md             # PDF
+│   └── shtml/SKILL.md            # HTML
+├── .claude/skills/               # مولّد → Claude Code
+├── .agents/skills/               # مولّد → Codex / Cursor / Gemini
 ├── assets/
 │   └── banner.svg
 ├── docs/
@@ -276,6 +313,7 @@ opencode-design-skills/
 │   ├── usage-examples.en.md      # أمثلة مطالبات جاهزة (English)
 ├── install.sh                    # سكربت تثبيت
 ├── scripts/
+│   ├── sync-platforms.sh         # توليد .claude/ و.agents/
 │   └── publish.sh                # رفع المستودع إلى GitHub
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -314,6 +352,16 @@ opencode-design-skills/
 
 الوكيل قد يختصر عند ضيق سياق النموذج. اطلب صراحة:
 `use skill sword and follow its checklist fully — ask me the 9 questions first`.
+
+</details>
+
+<details>
+<summary><b>Codex لا يرى المهارات</b></summary>
+
+1. يجب أن تكون في `.agents/skills/` (مشروع) أو `~/.agents/skills/` (مستخدم) — **وليس** `.codex/skills/`، وهذا هو الخطأ الأكثر شيوعاً.
+2. أعد تشغيل Codex: تُقرأ الميتاداتا مرة واحدة عند بدء الجلسة.
+3. نفّذ `/skills` لعرض المكتشف، ثم استدعِ بـ `$sword`.
+4. على نسخة قديمة استخدم `./install.sh --codex-legacy --global` لتعبئة `~/.codex/skills/` أيضاً.
 
 </details>
 

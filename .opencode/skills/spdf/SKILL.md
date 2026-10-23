@@ -3,12 +3,14 @@ name: spdf
 description: Produce print-ready, visually sophisticated PDF documents (reports, proposals, brochures, one-pagers, invoices) using HTML+CSS with WeasyPrint or headless Chromium — precise page geometry, running headers/footers, page counters, table of contents with real page numbers, embedded SVG charts, cover pages, and full Arabic/RTL typography. Use when the user wants a final PDF deliverable.
 license: MIT
 compatibility: opencode
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
   category: documents-design
   workflow: document-generation
   output: "PDF documents"
   stack: "WeasyPrint"
   rtl: "true"
+  short-description: "Print-ready PDF documents"
   version: "1.0.0"
 ---
 

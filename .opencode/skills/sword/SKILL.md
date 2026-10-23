@@ -3,12 +3,14 @@ name: sword
 description: Create and edit professional, visually rich Microsoft Word (.docx) documents with python-docx — branded cover pages, custom heading styles, styled tables, callout boxes, accent dividers, professional headers/footers with page fields, and full Arabic/RTL support. Use when the user asks for a Word file, .docx report, proposal, quotation, company profile, technical document, or any editable document deliverable.
 license: MIT
 compatibility: opencode
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
   category: documents-design
   workflow: document-generation
   output: "Word (.docx) documents"
   stack: "python-docx"
   rtl: "true"
+  short-description: "Professional Word .docx documents"
   version: "1.0.0"
 ---
 

@@ -3,12 +3,14 @@ name: shtml
 description: Build modern, responsive, self-contained HTML pages and reports (dashboards, company profiles, project reports, landing pages, proposals) with hand-written CSS design tokens, inline SVG icons, card layouts, KPI tiles, elegant tables, subtle motion, dark mode, print styles, and correct Arabic RTL. No external dependencies required. Use when the user asks for an HTML report, web page, or browser-viewable deliverable.
 license: MIT
 compatibility: opencode
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
   category: documents-design
   workflow: web-deliverables
   output: "HTML pages and reports"
   stack: "HTML+CSS"
   rtl: "true"
+  short-description: "Modern responsive HTML pages"
   version: "1.0.0"
 ---
 

@@ -65,6 +65,25 @@
 
 ---
 
+## [1.2.0] — 2026-10-23
+
+### أُضيف
+- **دعم متعدد الوكلاء من مصدر واحد** وفق معيار Agent Skills المفتوح:
+  - `.claude/skills/` — Claude Code (استدعاء `/sword`)
+  - `.agents/skills/` — Codex CLI (`$sword` / `/skills`) وأيضاً Cursor وAntigravity وGemini CLI
+  - `.opencode/skills/` يبقى المصدر الأصلي والقانوني
+- **`scripts/sync-platforms.sh`**: يولّد نسخ المنصات ويقارنها بالـ SHA-256، مع وضع `--check` مناسب لـ CI لكشف أي انحراف.
+- **`install.sh`** أصبح متعدد الوكلاء: `--opencode` · `--claude` · `--codex` · `--codex-legacy` · `--all`، مع `--global` و`--project`.
+- **`allowed-tools: Read, Write, Edit, Bash, Glob, Grep`** في الـ frontmatter — يستفيد منها Claude Code لتفعيل الأدوات دون طلب إذن لكل أداة (تتجاهلها بقية الوكلاء).
+- **`metadata.short-description`** — الوصف الذي يعرضه Codex.
+- أقسام جديدة في الـ README باللغتين: «معيار واحد، ثلاثة وكلاء» + مصفوفة المسارات والاستدعاء، وقسم استكشاف أخطاء مخصص لـ Codex.
+
+### ملاحظات توافق
+- `.agents/skills/` هو المسار الذي يوثّقه OpenAI حالياً؛ `~/.codex/skills/` مسار نسخ أقدم ويُدعم عبر `--codex-legacy`.
+- OpenCode يقرأ `.claude/skills/` و`.agents/skills/` كمسارات توافق، لذا تثبيت واحد يكفي للثلاثة.
+
+---
+
 ## قادم
 - `sdecks` — عروض PowerPoint (`.pptx`)
 - `sxls` — تقارير Excel (`.xlsx`)

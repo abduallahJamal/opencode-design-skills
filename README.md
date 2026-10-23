@@ -10,6 +10,8 @@
 [![OpenCode](https://img.shields.io/badge/OpenCode-Skills-38bdf8.svg?style=flat-square)](https://opencode.ai/docs/skills/)
 [![Skills](https://img.shields.io/badge/skills-3-818cf8.svg?style=flat-square)](#-the-three-skills)
 [![RTL](https://img.shields.io/badge/Arabic-RTL-a78bfa.svg?style=flat-square)](#-arabic-rtl-support)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-d97757.svg?style=flat-square)](#-one-standard-three-agents)
+[![Codex](https://img.shields.io/badge/Codex%20CLI-compatible-10a37f.svg?style=flat-square)](#-one-standard-three-agents)
 [![Docs](https://img.shields.io/badge/docs-English%20%2B%20العربية-0f172a.svg?style=flat-square)
 
 **🌐 English** · **[العربية](README.ar.md)**
@@ -66,6 +68,43 @@ Modern HTML pages and reports as **a single file with zero dependencies**.
 - Verified responsiveness at 375 / 768 / 1440px
 - `@media print` ready for PDF conversion
 - Accessibility: ≥ 4.5:1 contrast, `:focus-visible`, semantic HTML
+
+---
+
+## 🧩 One standard, three agents
+
+These skills follow the [Agent Skills open standard](https://agentskills.io/specification) — the same `SKILL.md` runs unchanged in OpenCode, Claude Code, and Codex. Only the install path differs:
+
+| Agent | Project path | User path | Invoke |
+|---|---|---|---|
+| **OpenCode** | `.opencode/skills/` | `~/.config/opencode/skills/` | automatic, or `use skill sword` |
+| **Claude Code** | `.claude/skills/` | `~/.claude/skills/` | `/sword` |
+| **Codex CLI** | `.agents/skills/` | `~/.agents/skills/` | `$sword` or `/skills` |
+
+Several other agents read these same paths — Cursor, GitHub Copilot CLI, Gemini CLI, and Antigravity — so one install travels a long way.
+
+### Platform-specific notes
+
+- **Claude Code** — the frontmatter carries `allowed-tools: Read, Write, Edit, Bash, Glob, Grep`, so Python, WeasyPrint, and LibreOffice can run without a permission prompt on every tool. Invoke with `/sword`; it also auto-triggers from the description.
+- **Codex CLI** — reads only `name` and `description` (and `metadata.short-description` for display) and ignores everything else. Restart Codex after installing, then use `/skills` or `$sword`. *Older builds read `~/.codex/skills/`; if `.agents/skills/` is not picked up, install with `--codex-legacy`.*
+- **OpenCode** — reads `.opencode/skills/` natively and also `.claude/skills/` and `.agents/skills/` as compatibility paths, so a single install can serve all three agents.
+
+### Install for a specific agent
+
+```bash
+./install.sh --all --global                  # every agent, user scope
+./install.sh --claude --global               # Claude Code only   → ~/.claude/skills/
+./install.sh --codex  --global               # Codex only         → ~/.agents/skills/
+./install.sh --opencode --project ~/my-app   # OpenCode, one repo
+./install.sh --list                          # show skills
+```
+
+**Single source of truth:** `.opencode/skills/` is canonical. `.claude/skills/` and `.agents/skills/` are generated copies — edit the canonical file, then run:
+
+```bash
+./scripts/sync-platforms.sh          # regenerate
+./scripts/sync-platforms.sh --check  # verify no drift (CI-friendly)
+```
 
 ---
 
@@ -259,14 +298,12 @@ use skill sword
 
 ```text
 opencode-design-skills/
-├── .opencode/
-│   └── skills/
-│       ├── sword/
-│       │   └── SKILL.md          # Word / .docx
-│       ├── spdf/
-│       │   └── SKILL.md          # PDF
-│       └── shtml/
-│           └── SKILL.md          # HTML
+├── .opencode/skills/             # ← canonical source
+│   ├── sword/SKILL.md            # Word / .docx
+│   ├── spdf/SKILL.md             # PDF
+│   └── shtml/SKILL.md            # HTML
+├── .claude/skills/               # generated → Claude Code
+├── .agents/skills/               # generated → Codex / Cursor / Gemini
 ├── assets/
 │   └── banner.svg
 ├── docs/
@@ -274,6 +311,7 @@ opencode-design-skills/
 │   └── usage-examples.md         # ready-to-use prompts (Arabic)
 ├── install.sh                    # installer
 ├── scripts/
+│   ├── sync-platforms.sh         # regenerate .claude/ + .agents/
 │   └── publish.sh                # push to GitHub
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -312,6 +350,16 @@ opencode-design-skills/
 
 The agent may shortcut under tight model context. Ask explicitly:
 `use skill sword and follow its checklist fully — ask me the 9 questions first`.
+
+</details>
+
+<details>
+<summary><b>Codex does not see the skills</b></summary>
+
+1. Skills must be in `.agents/skills/` (project) or `~/.agents/skills/` (user) — **not** `.codex/skills/`, which is the most common mistake.
+2. Restart Codex: metadata is read once at session start.
+3. Run `/skills` to list what was detected, then invoke with `$sword`.
+4. On an older build, install with `./install.sh --codex-legacy --global` to also populate `~/.codex/skills/`.
 
 </details>
 
