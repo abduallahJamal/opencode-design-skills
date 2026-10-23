@@ -30,3 +30,6 @@ Thumbs.db
 *.log
 .env
 .env.*
+
+# أرشيفات
+*.zip

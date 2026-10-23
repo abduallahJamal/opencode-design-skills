@@ -4,183 +4,182 @@
 
 <br>
 
-**ثلاث مهارات (Agent Skills) لـ [OpenCode](https://opencode.ai) تُحوّل مخرجات الوكيل من «ملف منسّق» إلى «مستند احترافي».**
+**Three [OpenCode](https://opencode.ai) Agent Skills that move agent output from *formatted file* to *professional document*.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Skills-38bdf8.svg?style=flat-square)](https://opencode.ai/docs/skills/)
-[![Skills](https://img.shields.io/badge/skills-3-818cf8.svg?style=flat-square)](#-المهارات-الثلاث)
-[![RTL](https://img.shields.io/badge/Arabic-RTL-a78bfa.svg?style=flat-square)](#-دعم-العربية-rtl)
-[![Docs](https://img.shields.io/badge/docs-بالعربية-0f172a.svg?style=flat-square)](docs/usage-examples.md)
+[![Skills](https://img.shields.io/badge/skills-3-818cf8.svg?style=flat-square)](#-the-three-skills)
+[![RTL](https://img.shields.io/badge/Arabic-RTL-a78bfa.svg?style=flat-square)](#-arabic-rtl-support)
+[![Docs](https://img.shields.io/badge/docs-English%20%2B%20العربية-0f172a.svg?style=flat-square)
 
-`sword` · `spdf` · `shtml`
+**🌐 English** · **[العربية](README.ar.md)**
 
 </div>
 
 ---
 
-## 📌 الفكرة في سطر واحد
+## 📌 The idea in one line
 
-معظم الملفات التي يولّدها الوكلاء «صحيحة» لكنها **قبيحة**: نص أسود 11pt، جداول Word الافتراضية، عربية بخط مكسور، صفحات بلا هوية. هذه المهارات الثلاث تُلزم الوكيل بمنهجية تصميم كاملة قبل أن يكتب سطراً واحداً.
+Most files agents generate are *technically correct* and *visually ugly*: 11pt black text, Word's default `Table Grid`, broken Arabic shaping, pages with no identity. These three skills force the agent through a complete design methodology **before** it writes a single line of code.
 
-| | بدون هذه المهارات | مع هذه المهارات |
+| | Without these skills | With these skills |
 |---|---|---|
-| **الشكل** | تنسيق افتراضي، جدول `Table Grid` | غلاف بلون الهوية، أنماط Heading، جداول بلا حدود عمودية |
-| **العربية** | خط افتراضي ومقلوبة الاتجاه | `w:cs` + `w:rtl` + `bidiVisual` صحيحة |
-| **العناصر** | فقرات نص فقط | بطاقات KPI، صناديق تنبيه، خطوط زمنية، رسوم SVG |
-| **الأسئلة** | يبدأ فوراً ويخمّن | **يسأل 9 أسئلة إلزامية أولاً** ثم يعرض موجز تصميم للموافقة |
-| **التسليم** | ملف يُفتح ويُترك | مراجعة بصرية للصفحات + قائمة تحقق نهائية |
+| **Appearance** | Default formatting, `Table Grid` tables | Branded cover, defined heading styles, borderless tables |
+| **Arabic** | Wrong font, broken direction | Correct `w:cs` + `w:rtl` + `bidiVisual` |
+| **Visuals** | Paragraphs only | KPI cards, callout boxes, timelines, inline SVG |
+| **Questions** | Starts immediately and guesses | **Asks 9 mandatory questions first**, then gets sign-off on a design brief |
+| **Delivery** | File opened and abandoned | Visual page-by-page review + final delivery checklist |
 
 ---
 
-## 🧩 المهارات الثلاث
+## 🧩 The three skills
 
 ### 🗡️ `sword` — Word (`.docx`)
 
-مستندات Word قابلة للتعديل بمستوى بصري احترافي عبر `python-docx`.
+Editable Word documents at a professional visual level, built with `python-docx`.
 
-- غلاف بهوية بصرية بلا ترويسة ولا ترقيم
-- أنماط `Heading` مخصّصة قابلة لتعديلها من لوحة Styles في Word
-- ترويسة وتذييل احترافيان بحقلي `PAGE` و`NUMPAGES`
-- جداول أنيقة: رأس ملوّن، صفوف متبادلة، رأس متكرر، صف إجمالي بارز
-- صناديق Callout بخلفية فاتحة وحدّ جانبي ملوّن
-- عربية RTL كاملة على مستوى المستند والفقرة والنص
+- Branded cover page with no header or page number
+- Custom `Heading` styles that stay editable in Word's Styles pane
+- Professional header/footer with live `PAGE` and `NUMPAGES` fields
+- Elegant tables: colored header, zebra rows, repeating header row, prominent total row
+- Callout boxes with a tinted fill and an accent side border
+- Full Arabic RTL across document, paragraph, and run levels
 
-### 📄 `spdf` — PDF نهائي للطباعة
+### 📄 `spdf` — Print-ready PDF
 
-ملفات PDF بجودة مطبعة عبر `WeasyPrint` أو Chromium.
+Press-quality PDFs via `WeasyPrint` or headless Chromium.
 
-- هندسة صفحات دقيقة عبر `@page` كامل
-- رؤوس وتذييلات جارية: «صفحة X من Y»
-- **فهرس بأرقام صفحات حقيقية** عبر `target-counter`
-- رسوم SVG مضمنة بألوان الهوية مع تسميات ومصادر
-- خطوط عربية مضمّنة محلياً (`@font-face`)
-- تحقق إلزامي بـ `pdffonts` و`pdftoppm` قبل التسليم
+- Precise page geometry through full `@page` control
+- Running headers and footers: "Page X of Y"
+- **Table of contents with real page numbers** via `target-counter`
+- Embedded SVG charts in brand colors, with numbered captions and sources
+- Locally embedded Arabic fonts (`@font-face`) — never a CDN
+- Mandatory verification with `pdffonts` and `pdftoppm` before delivery
 
-### 🌐 `shtml` — HTML متجاوب ومستقل
+### 🌐 `shtml` — Responsive, self-contained HTML
 
-صفحات وتقارير HTML حديثة **بملف واحد بلا أي اعتماديات**.
+Modern HTML pages and reports as **a single file with zero dependencies**.
 
-- نظام توكنات CSS كامل (`:root`)
-- وضع ليلي تلقائي عبر `prefers-color-scheme`
-- بطاقات KPI + جداول + خط زمني + SVG مضمن
-- استجابة مؤكدة على 375 / 768 / 1440px
-- `@media print` جاهز للتحويل إلى PDF
-- إتاحة: تباين ≥ 4.5:1، `:focus-visible`، HTML دلالي
+- Complete CSS design-token system (`:root`)
+- Automatic dark mode via `prefers-color-scheme`
+- KPI cards, elegant tables, timelines, inline SVG
+- Verified responsiveness at 375 / 768 / 1440px
+- `@media print` ready for PDF conversion
+- Accessibility: ≥ 4.5:1 contrast, `:focus-visible`, semantic HTML
 
 ---
 
-## 🚀 التثبيت
+## 🚀 Installation
 
-### الطريقة 1 — سكربت التثبيت (موصى بها)
+### Option 1 — Install script (recommended)
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/opencode-design-skills.git
 cd opencode-design-skills
 
-# تثبيت عام لكل المشاريع  ←  ~/.config/opencode/skills/
+# Global: available in every project  →  ~/.config/opencode/skills/
 ./install.sh --global
 
-# أو تثبيت في مشروع محدد  ←  ./.opencode/skills/
+# Or project-scoped  →  ./.opencode/skills/
 ./install.sh --project /path/to/your-project
 ```
 
-### الطريقة 2 — نسخ يدوي
+### Option 2 — Manual copy
 
 ```bash
-# مستوى المشروع
+# Project scope
 mkdir -p .opencode/skills
 cp -r opencode-design-skills/.opencode/skills/* .opencode/skills/
 
-# أو المستوى العام (كل مشاريعك)
+# Global scope (all your projects)
 mkdir -p ~/.config/opencode/skills
 cp -r opencode-design-skills/.opencode/skills/* ~/.config/opencode/skills/
 ```
 
-### الطريقة 3 — Git Submodule
+### Option 3 — Git submodule
 
 ```bash
 git submodule add https://github.com/YOUR_USERNAME/opencode-design-skills.git .opencode/vendor/design-skills
 ln -s ../vendor/design-skills/.opencode/skills/sword .opencode/skills/sword
 ```
 
-> **تحقّق من التثبيت:** افتح OpenCode ونفّذ `أي مهارات متاحة لديك؟` — يجب أن تظهر `sword` و`spdf` و`shtml` في قائمة `available_skills`.
-> التفاصيل الكاملة في [دليل استكشاف الأخطاء](#-استكشاف-الأخطاء).
+> **Verify:** open OpenCode and ask `which skills are available?` — `sword`, `spdf`, and `shtml` should appear in the `available_skills` list. See [Troubleshooting](#-troubleshooting).
 
 ---
 
-## 🗂️ مواقع الاكتشاف الرسمية
+## 🗂️ Official discovery locations
 
-OpenCode يبحث عن المهارات في ستة مواقع، واسم المجلد **يجب أن يطابق** حقل `name`:
+OpenCode searches six locations, and the **folder name must match** the `name` field:
 
-| النطاق | المسار |
+| Scope | Path |
 |---|---|
-| مشروع (OpenCode) | `.opencode/skills/<name>/SKILL.md` |
-| عام (OpenCode) | `~/.config/opencode/skills/<name>/SKILL.md` |
-| مشروع (Claude-compatible) | `.claude/skills/<name>/SKILL.md` |
-| عام (Claude-compatible) | `~/.claude/skills/<name>/SKILL.md` |
-| مشروع (Agent-compatible) | `.agents/skills/<name>/SKILL.md` |
-| عام (Agent-compatible) | `~/.agents/skills/<name>/SKILL.md` |
+| Project (OpenCode) | `.opencode/skills/<name>/SKILL.md` |
+| Global (OpenCode) | `~/.config/opencode/skills/<name>/SKILL.md` |
+| Project (Claude-compatible) | `.claude/skills/<name>/SKILL.md` |
+| Global (Claude-compatible) | `~/.claude/skills/<name>/SKILL.md` |
+| Project (Agent-compatible) | `.agents/skills/<name>/SKILL.md` |
+| Global (Agent-compatible) | `~/.agents/skills/<name>/SKILL.md` |
 
-قواعد صارمة يفرضها OpenCode على `name`: حروف صغيرة وأرقام وشرطات مفردة فقط، بحد أقصى 64 حرفاً، ومطابقة تامة لاسم المجلد — أي `^[a-z0-9]+(-[a-z0-9]+)*$`.
+OpenCode enforces strict `name` rules: lowercase alphanumerics with single hyphens, 64 characters max, and an exact match with the containing folder — `^[a-z0-9]+(-[a-z0-9]+)*$`.
 
 ---
 
-## 🧠 كيف تعمل المهارة في الواقع
+## 🧠 How a skill actually behaves
 
 ```mermaid
 flowchart LR
-    A[طلب المستخدم] --> B{الوكيل يختار المهارة}
+    A[User request] --> B{Agent selects skill}
     B -->|docx| S[sword]
     B -->|pdf| P[spdf]
     B -->|html| H[shtml]
-    S --> Q[9 أسئلة إلزامية]
+    S --> Q[9 mandatory questions]
     P --> Q
     H --> Q
-    Q --> R[موجز تصميم 5-7 أسطر]
-    R -->|موافقة| D[تنفيذ + لوحة ألوان + خطوط]
-    R -->|رفض/غموض| Q
-    D --> V[مراجعة بصرية للصفحات]
-    V --> C[قائمة تحقق نهائية]
-    C --> O[تسليم الملف]
+    Q --> R[Design brief, 5-7 lines]
+    R -->|approved| D[Build: palette + type scale]
+    R -->|declined/ambiguous| Q
+    D --> V[Visual page review]
+    V --> C[Final checklist]
+    C --> O[Deliver file]
 ```
 
-### بروتوكول «اسأل أولاً» — إلزامي
+### The "ask first" protocol — non-negotiable
 
-كل مهارة تحتوي على **قاعدة ذهبية**: يُمنع كتابة سطر واحد من الكود قبل إجابات كافية.
+Every skill carries a **golden rule**: no code may be written before sufficient answers are collected.
 
-1. اطرح الحزمة الأولى (4–5 أسئلة) دفعةً واحدة — لا إغراق.
-2. أكمل المتبقي في دفعة ثانية عند الضرورة.
-3. لخّص الإجابات في **موجز تصميم** واطلب موافقة صريحة.
-4. نفّذ، ثم **راجع الصفحات بصرياً** قبل التسليم.
+1. Ask the first batch (4–5 questions) in one go — never overwhelm.
+2. Follow up with a second batch only if something essential is missing.
+3. Summarize answers into a **design brief** and require explicit sign-off.
+4. Build, then **review the pages visually** before delivery.
 
-إن رفض المستخدم الإجابة، تُلزمه المهارة بحزمة افتراضية معلنة (Corporate / RTL / A4) تُعتمد بكلمة واحدة — لا تنفيذ صامت.
+If the user declines to answer, the skill requires declaring an explicit default bundle (Corporate / RTL / A4) approved with a single word — never a silent assumption.
 
 <details>
-<summary><b>الأسئلة التسعة الإلزامية (اضغط للعرض)</b></summary>
+<summary><b>The 9 mandatory questions (click to expand)</b></summary>
 
-| # | السؤال | لماذا هو جوهري |
+| # | Question | Why it is essential |
 |---|---|---|
-| 1 | ما الهدف من المستند؟ (تقرير، عرض سعر، كتيب، وثيقة تقنية، بروفايل… ) | يحدد الهيكل بالكامل |
-| 2 | من الجمهور المستهدف؟ | يحدد مستوى الرسمية والكثافة |
-| 3 | ستايل معين؟ (Minimal، Corporate، Modern Dark، ملون قوي، فاخر) | يحدد اللوحة والخطوط |
-| 4 | الألوان المفضلة أو هوية العلامة؟ | يمنع التخمين اللوني |
-| 5 | شعار أو صور مضافة؟ | يحدد الغلاف والترويسة |
-| 6 | الحجم التقريبي أو عدد الصفحات؟ | يحدد كثافة المحتوى |
-| 7 | جداول أو رسوم بيانية أو إنفوجرافيك؟ | يحدد العناصر البصرية |
-| 8 | محتوى جاهز أم أكتبه من الصفر؟ | يحدد مسؤولية المحتوى |
-| 9 | تفاصيل إضافية؟ (اللغة، RTL، الترويسة، السرية، الحماية) | يحدد المتطلبات الخاصة |
+| 1 | What is the document for? (report, quotation, brochure, technical doc, profile…) | Determines the entire structure |
+| 2 | Who is the target audience? | Sets formality and information density |
+| 3 | Any specific style? (Minimal, Corporate, Modern Dark, Vibrant, Luxury) | Determines palette and typography |
+| 4 | Preferred colors or brand identity? | Eliminates color guessing |
+| 5 | Any logo or images to include? | Determines cover and header treatment |
+| 6 | Approximate size or page count? | Determines content density |
+| 7 | Tables, charts, or infographics? | Determines visual components |
+| 8 | Existing content, or should I write it from scratch? | Defines content ownership |
+| 9 | Anything else? (language, RTL, header, confidentiality, protection) | Captures special requirements |
 
 </details>
 
 ---
 
-## 🎨 نظام التصميم المشترك
+## 🎨 Shared design system
 
-المهارات الثلاث تتشارك لغة تصميم واحدة، فتبدو مخرجاتك متسقة أياً كان الملف.
+All three skills share one design language, so output stays consistent no matter the format.
 
-### اللوحات اللونية
+### Color palettes
 
-| اللوحة | Ink | Accent | Accent2 | Surface |
+| Palette | Ink | Accent | Accent2 | Surface |
 |---|---|---|---|---|
 | **Corporate Blue** | `#0F172A` | `#1D4ED8` | `#0EA5A4` | `#F8FAFC` |
 | **Modern Dark** | `#0B1220` | `#38BDF8` | `#A78BFA` | `#111827` |
@@ -188,72 +187,75 @@ flowchart LR
 | **Government** | `#111827` | `#0F766E` | `#9A3412` | `#F9FAFB` |
 | **Vibrant** | `#0F172A` | `#7C3AED` | `#F59E0B` | `#FAF5FF` |
 
-### سلّم الخطوط
+### Type scale
 
-| الاستخدام | عربي | لاتيني | الحجم |
+| Role | Arabic | Latin | Size |
 |---|---|---|---|
-| عنوان الغلاف | Cairo / Tajawal / Amiri | Inter / Playfair | 34–48pt · 700–800 |
+| Cover title | Cairo / Tajawal / Amiri | Inter / Playfair | 34–48pt · 700–800 |
 | H1 | Cairo / Dubai | Inter | 22–26pt · 700 |
 | H2 | Cairo | Inter | 15–17pt · 600 |
-| نص | IBM Plex Sans Arabic | Inter | 10–11.5pt · 400 · `line-height: 1.85` |
-| تسمية | Cairo | Inter | 8–9pt · Muted |
+| Body | IBM Plex Sans Arabic | Inter | 10–11.5pt · 400 · `line-height: 1.85` |
+| Caption | Cairo | Inter | 8–9pt · Muted |
 
-### المبادئ الثمانية
+### The 8 principles
 
-1. **هرمية بصرية صريحة** — فرق محسوس بين كل مستوى.
-2. **شبكة ومسافات مدروسة** — 4/8px كوحدة أساس، مساحة بيضاء 25–35%.
-3. **لون واحد قوي + محايدات** — لا «قوس قزح».
-4. **كل عنصر يحمل معنى** — لا زخرفة بلا وظيفة.
-5. **الاتساق قبل الإبداع** — نفس الغلاف والجداول في كل صفحة.
-6. **قابلية التعديل** — أنماط حقيقية لا تنسيق يدوي.
-7. **Bidi نظيف** — العربية أولاً، والأرقام تُعرض صحيحة.
-8. **الطباعة أولاً** — لا عناصر مقطوعة ولا صفحات يتيمة.
+1. **Explicit visual hierarchy** — a felt difference at every level.
+2. **Grid and deliberate spacing** — 4/8px base unit, 25–35% whitespace.
+3. **One strong color plus neutrals** — never a rainbow.
+4. **Every element carries meaning** — no decoration without function.
+5. **Consistency before creativity** — same cover, same table pattern throughout.
+6. **Editability** — real styles, never ad-hoc manual formatting.
+7. **Clean bidi** — Arabic first, numbers still render correctly.
+8. **Print-first** — no split elements, no orphaned headings.
 
 ---
 
-## 🇸🇦 دعم العربية (RTL)
+## 🇸🇦 Arabic (RTL) support
 
-هذا هو الفرق الأكبر بين «ملف فيه عربي» و«ملف عربي احترافي». كل مهارة تتعامل مع الفخاخ الحقيقية:
+This is the biggest gap between "a file containing Arabic" and "a professional Arabic document". Each skill handles the real traps:
 
-| الفخ | الحل المطبَّق في المهارات |
+| Trap | Handling in the skills |
 |---|---|
-| العربية تظهر بخط افتراضي قبيح في Word | ضبط `w:rFonts` على `ascii` + `hAnsi` + **`cs`** مع `w:szCs` |
-| علامات الترقيم في الجهة الخطأ | `w:bidi` على مستوى المستند والفقرة والنمط |
-| الجداول تبدأ من العمود الخطأ | `w:bidiVisual` على الجدول |
-| الحروف تتفكك | منع `letter-spacing` الموجب على العربية |
-| الخطوط تختفي عند المستلم | تضمين الخطوط محلياً + التحقق عبر `pdffonts` |
-| الأرقام تختلط بالنص | خلايا رقمية بـ `direction: ltr` منفصلة |
-| `justify` يُنتج فراغات قبيحة | محاذاة `start` مع `text-align-last` |
+| Arabic renders in an ugly fallback font in Word | Set `w:rFonts` on `ascii` + `hAnsi` + **`cs`** with `w:szCs` |
+| Punctuation lands on the wrong side | `w:bidi` at document, paragraph, and style level |
+| Tables start from the wrong column | `w:bidiVisual` on the table |
+| Letters fall apart | No positive `letter-spacing` on Arabic |
+| Fonts vanish on the recipient's machine | Locally embedded fonts + `pdffonts` verification |
+| Numbers mix into Arabic text | Dedicated numeric cells with `direction: ltr` |
+| `justify` produces ugly gaps | `text-align: start` with `text-align-last` |
 
 ---
 
-## 🧪 الاستخدام
+## 🧪 Usage
 
-بعد التثبيت، اطلب من OpenCode بشكل طبيعي — سيختار المهارة تلقائياً من `description`:
+Once installed, just ask OpenCode normally — it selects the skill automatically from the `description`:
 
 ```text
-اكتب لي تقرير أداء سنوي 2026 لشركة في قطاع الطاقة، عربي، 8 صفحات،
-ستايل Corporate أزرق داكن، فيه بطاقات مؤشرات وجدول مالي ورسم بياني،
-وسلّمه PDF.
+Write a 2026 annual performance report for an energy company: English,
+8 pages, Corporate dark-blue style, with KPI cards, a financial table
+and a revenue chart. Deliver as PDF.
 
-اعمل عرض سعر لخدمات استشارية بصيغة Word قابلة للتعديل، بشعار الشركة
-الموجود في ./assets/logo.png، وترويسة فيها اسم الجهة ورقم الصفحة.
+Draft a consulting services quotation as an editable Word file with the
+company logo at ./assets/logo.png, a header showing the company name,
+and page numbering.
 
-حوّل هذا المحتوى إلى صفحة HTML احترافية متجاوبة مع وضع ليلي.
+Turn this content into a professional, responsive HTML page with dark mode.
 ```
 
-**استدعاء صريح** (لتجاوز الاختيار التلقائي):
+📖 More copy-paste prompts: **[docs/usage-examples.en.md](docs/usage-examples.en.md)**
+
+**Explicit invocation** (bypasses auto-selection):
 
 ```text
 use skill sword
-/sword            # إن فعّلت metadata.opencode/slash
+/sword            # if metadata.opencode/slash is enabled
 ```
 
-> المهارات مصمّمة لتسألك أولاً. توقّع 4–5 أسئلة قبل أي ملف — هذا سلوك مقصود، وليس تعطيلاً.
+> These skills are designed to question you first. Expect 4–5 questions before any file is produced — that is intentional behavior, not a stall.
 
 ---
 
-## 📁 هيكل المستودع
+## 📁 Repository structure
 
 ```text
 opencode-design-skills/
@@ -268,27 +270,29 @@ opencode-design-skills/
 ├── assets/
 │   └── banner.svg
 ├── docs/
-│   └── usage-examples.md         # أمثلة مطالبات جاهزة
-├── install.sh                    # سكربت تثبيت
+│   ├── usage-examples.en.md      # ready-to-use prompts (English)
+│   └── usage-examples.md         # ready-to-use prompts (Arabic)
+├── install.sh                    # installer
 ├── scripts/
-│   └── publish.sh                # رفع المستودع إلى GitHub
+│   └── publish.sh                # push to GitHub
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
-└── README.md
+├── README.md                     # English (this file)
+└── README.ar.md                  # العربية
 ```
 
 ---
 
-## 🔧 استكشاف الأخطاء
+## 🔧 Troubleshooting
 
 <details>
-<summary><b>المهارة لا تظهر في القائمة</b></summary>
+<summary><b>A skill does not appear in the list</b></summary>
 
-1. `SKILL.md` يجب أن تكون **بحروف كبيرة** بالكامل.
-2. يجب أن يكون `name` في الـ frontmatter **مطابقاً تماماً** لاسم المجلد.
-3. يجب أن يحتوي الـ frontmatter على `name` و`description` معاً.
-4. تحقّق من صلاحيات `opencode.json` — المهارات بـ `deny` تُخفى:
+1. `SKILL.md` must be spelled in **all caps**.
+2. The frontmatter `name` must **exactly match** the containing folder name.
+3. The frontmatter must contain both `name` and `description`.
+4. Check your `opencode.json` permissions — skills set to `deny` are hidden:
 
 ```json
 {
@@ -298,89 +302,70 @@ opencode-design-skills/
 }
 ```
 
-5. تحقّق من `metadata["opencode/autoinvoke"]` — إن كانت `"false"` تُخفى من الإرشاد التلقائي (لكن تبقى قابلة للاستدعاء بالاسم).
-6. أعد تشغيل OpenCode بعد إضافة ملفات جديدة.
+5. Check `metadata["opencode/autoinvoke"]` — when `"false"`, the skill is hidden from model-facing guidance (it stays loadable by exact name).
+6. Restart OpenCode after adding new files.
 
 </details>
 
 <details>
-<summary><b>الملف يخرج بلا تنسيق — تجاهل التعليمات</b></summary>
+<summary><b>Output comes out unstyled — instructions were ignored</b></summary>
 
-الوكيل قد يختصر عند ضيق سياق النموذج. اطلب صراحة:
+The agent may shortcut under tight model context. Ask explicitly:
 `use skill sword and follow its checklist fully — ask me the 9 questions first`.
 
 </details>
 
 <details>
-<summary><b>المتطلبات التشغيلية لكل مهارة</b></summary>
+<summary><b>Runtime requirements per skill</b></summary>
 
-| المهارة | المتطلبات |
+| Skill | Requirements |
 |---|---|
-| `sword` | `pip install python-docx pillow` · اختياري: LibreOffice للتحقق |
+| `sword` | `pip install python-docx pillow` · optional: LibreOffice for verification |
 | `spdf` | `pip install weasyprint pypdf pillow` · `poppler-utils` (`pdftoppm`, `pdfinfo`, `pdffonts`) |
-| `shtml` | لا شيء — ملف HTML واحد مستقل |
+| `shtml` | None — a single self-contained HTML file |
 
 </details>
 
 ---
 
-## 🤝 المساهمة
+## 🤝 Contributing
 
-المساهمات مرحّب بها. قبل إرسال PR:
+Contributions are welcome. Before opening a PR:
 
-1. حافظ على **بروتوكول «اسأل أولاً»** — لا تحذفه ولا تختصره.
-2. أضف أي قاعدة جديدة في القسم المناسب، وليس كملاحظة سائبة.
-3. حدّث **قائمة التحقق النهائية** إن أضفت متطلباً.
-4. اختبر المهارة فعلياً بولّد ملف واحد على الأقل.
-5. راجع [CONTRIBUTING.md](CONTRIBUTING.md) للتنسيق والاصطلاحات.
+1. Preserve the **"ask first" protocol** — never delete or shorten it.
+2. Add any new rule in its proper section, not as a loose footnote.
+3. Update the **final delivery checklist** if you add a requirement.
+4. Actually test it by generating at least one real file.
+5. See [CONTRIBUTING.md](CONTRIBUTING.md) for conventions.
 
 ---
 
-## 🗺️ خارطة الطريق
+## 🗺️ Roadmap
 
 - [x] `sword` — Word / `.docx`
 - [x] `spdf` — PDF
 - [x] `shtml` — HTML
-- [ ] `sdecks` — عروض PowerPoint (`.pptx`)
-- [ ] `sxls` — تقارير Excel (`.xlsx`) بلوحات بيانات
-- [ ] `sbrand` — توليد دليل هوية بصرية قابل لإعادة الاستخدام
-- [ ] حزمة أمثلة: 12 مستنداً جاهزاً بملفات المصدر
+- [ ] `sdecks` — PowerPoint decks (`.pptx`)
+- [ ] `sxls` — Excel reports (`.xlsx`) with dashboards
+- [ ] `sbrand` — reusable brand-guideline generator
+- [ ] Sample pack: 12 ready-made documents with source files
 
 ---
 
-## 📜 الترخيص
+## 📜 License
 
-[MIT](LICENSE) — استخدم، عدّل، وانشر بحرية مع الإشارة للمصدر.
+[MIT](LICENSE) — use, modify, and distribute freely with attribution.
 
----
+**Documentation languages:** [English](README.md) · [العربية](README.ar.md)
 
-<div dir="ltr">
-
-## English Summary
-
-**opencode-design-skills** is a set of three [OpenCode](https://opencode.ai/docs/skills/) Agent Skills that push generated documents from *technically correct* to *visually professional*:
-
-- **`sword`** — branded Word `.docx` via `python-docx`: custom heading styles, styled tables, callout boxes, header/footer page fields, full Arabic RTL (`w:cs`, `w:rtl`, `w:bidiVisual`).
-- **`spdf`** — print-ready PDF via WeasyPrint/Chromium: precise `@page` geometry, running headers, `counter(page)` footers, TOC with real page numbers (`target-counter`), embedded SVG charts, embedded Arabic fonts.
-- **`shtml`** — self-contained responsive HTML: CSS design tokens, dark mode, KPI cards, elegant tables, timelines, zero external dependencies, print styles.
-
-All three share one **design system** (5 color palettes, type scale, 8 design principles) and one **non-negotiable rule**: the agent must ask 9 clarifying questions and get sign-off on a design brief **before** writing any code, then perform a visual review and pass a final checklist before delivery.
-
-```bash
-git clone https://github.com/YOUR_USERNAME/opencode-design-skills.git
-cd opencode-design-skills && ./install.sh --global
-```
-
-MIT licensed.
-
-</div>
+**Docs:** [Usage examples (EN)](docs/usage-examples.en.md) · [أمثلة الاستخدام (AR)](docs/usage-examples.md)
 
 ---
 
 <div align="center">
 
-**صُنع بعناية لمن يكتبون بالعربية ويصرّون على أن يبدو عملهم احترافياً.**
+**Built for people who write in Arabic — and insist their work look professional.**
 
-<sub>إذا أفادتك هذه المهارات، امنح المستودع ⭐</sub>
+<sub>If these skills help you, give the repo a ⭐</sub>
 
 </div>
