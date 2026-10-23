@@ -40,6 +40,7 @@ docs/                              usage examples (EN + AR)
 assets/banner.svg                  README banner (hand-written SVG)
 install.sh                         multi-agent installer
 scripts/sync-platforms.sh          generator + drift check
+scripts/validate.py                SKILL.md frontmatter + sync + docs validator
 scripts/publish.sh                 repo init + push to GitHub
 ```
 
@@ -57,7 +58,7 @@ scripts/publish.sh                 repo init + push to GitHub
 ./scripts/sync-platforms.sh --check              # fail on drift (same check CI runs)
 
 bash -n install.sh scripts/*.sh                  # syntax check
-pip install pyyaml                               # needed for frontmatter validation
+pip install pyyaml && python3 scripts/validate.py # full frontmatter + sync + docs check
 ```
 
 ---

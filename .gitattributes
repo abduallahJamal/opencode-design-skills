@@ -1,0 +1,3 @@
+# Mark installer & bootstrap shell wrappers as vendored tooling for GitHub Linguist
+install.sh linguist-vendored
+scripts/publish.sh linguist-vendored
